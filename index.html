@@ -167,7 +167,7 @@ td {
       <div class="calendar-title">جولياني</div>
       <div class="calendar-date" id="julian-date"></div>
     </div>
-    <div class="calendar-box" onclick="showCalendar('julian')">
+    <div class="calendar-box" onclick="showCalendar('julian-astro')">
   <div class="calendar-title">اليوم الجولياني الفلكي</div>
   <div class="calendar-date" id="julian-day-number"></div>
 </div>
@@ -213,16 +213,29 @@ td {
     // متغيرات للتقويم الهجري
     let hijriDate = { day: 0, month: 0, year: 0 };
     
-  function getSimpleJulianDate(date = new Date()) {
-  const baseDate = new Date('2025-01-01T00:00:00');
+function getSimpleJulianDate(date = new Date()) {
   const oneDay = 1000 * 60 * 60 * 24;
-  const diffInDays = Math.floor((date - baseDate) / oneDay);
-  return 5000 + diffInDays;
+
+  // اجعل التاريخ يبدأ من 18 يونيو 2025 بدلاً من 1 يناير
+  const baseDate = new Date(2025, 5, 18); // 5 = يونيو لأن الأشهر تبدأ من 0
+  const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  const diffInDays = Math.floor((currentDate - baseDate) / oneDay);
+
+  return 5169 + diffInDays;
 }
-function updateJulianDayNumber() {
-  const julianDay = getSimpleJulianDate();
-  document.getElementById('julian-day-number').textContent = julianDay;
-}
+
+  function updateJulianDayNumber() {
+    const julianDay = getSimpleJulianDate();
+    document.getElementById('julian-day-number').textContent = julianDay;
+  }
+  function updateJulianDayNumber() {
+    const julianDay = getSimpleJulianDate();
+    document.getElementById('julian-day-number').textContent = julianDay;
+  }
+
+  updateJulianDayNumber();
+  setInterval(updateJulianDayNumber, 60000);
 
     // تهيئة التقويم
     window.onload = function() {
@@ -566,8 +579,12 @@ function updateJulianDayNumber() {
       }
       
       if (type === 'julian') {
-        return `${dayName}، ${julianDate.day} ${julianMonths[julianDate.month]} ${julianDate.year}`;
-      }
+  const jDate = new Date(currentDate);
+  jDate.setDate(jDate.getDate() - 13); // تحويل التاريخ إلى جولياني فعلي
+  const dayIndex = jDate.getDay(); // الآن نحصل على اسم اليوم الصحيح
+  const dayName = weekdayNames[dayIndex];
+  return `${dayName}، ${julianDate.day} ${julianMonths[julianDate.month]} ${julianDate.year}`;
+}
       
       return `${dayName}، ${date.getDate()} ${gregorianMonths[date.getMonth()]} ${date.getFullYear()}`;
     }
@@ -591,7 +608,12 @@ function updateJulianDayNumber() {
         // استخدام التاريخ الجولياني المحسوب
         calendarMonth = julianDate.month;
         calendarYear = julianDate.year;
-      } else {
+      }  else if (type === 'julian-astro') {
+    calendarMonth = currentDate.getMonth();
+    calendarYear = currentDate.getFullYear();
+    renderJulianAstroCalendar(); // استدعاء الدالة الجديدة
+    document.getElementById('calendar-display').style.display = 'block';
+  } else {
         // التقويم الميلادي
         calendarMonth = currentDate.getMonth();
         calendarYear = currentDate.getFullYear();
@@ -694,23 +716,82 @@ function updateJulianDayNumber() {
     
     // الانتقال إلى الشهر التالي
     function nextMonth() {
-      calendarMonth++;
-      if (calendarMonth > 11) {
-        calendarMonth = 0;
-        calendarYear++;
-      }
-      renderCalendar();
-    }
-    
+  calendarMonth++;
+  if (calendarMonth > 11) {
+    calendarMonth = 0;
+    calendarYear++;
+  }
+
+  if (selectedCalendar === 'hijri') {
+    renderCalendar(); // دالة تقويم الهجري
+  } else if (selectedCalendar === 'julian') {
+    renderCalendar(); // دالة تقويم الجولياني
+  } else if (selectedCalendar === 'gregorian') {
+    renderCalendar(); // دالة التقويم الميلادي
+  } else if (selectedCalendar === 'julian-astro') {
+    renderJulianAstroCalendar(); // ← هنا الفرق
+  }
+}
+
     // الانتقال إلى الشهر السابق
     function prevMonth() {
-      calendarMonth--;
-      if (calendarMonth < 0) {
-        calendarMonth = 11;
-        calendarYear--;
+  calendarMonth--;
+  if (calendarMonth < 0) {
+    calendarMonth = 11;
+    calendarYear--;
+  }
+
+  if (selectedCalendar === 'hijri') {
+    renderCalendar();
+  } else if (selectedCalendar === 'julian') {
+    renderCalendar();
+  } else if (selectedCalendar === 'gregorian') {
+    renderCalendar();
+  } else if (selectedCalendar === 'julian-astro') {
+    renderJulianAstroCalendar();
+  }
+}
+
+    function renderJulianAstroCalendar() {
+  const monthName = gregorianMonths[calendarMonth];
+  const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+  const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+
+  document.getElementById('calendar-title').innerText = `${monthName} ${calendarYear} (اليوم الجولياني الفلكي)`;
+  document.getElementById('weekdays').innerHTML = weekdayNames.map(d => `<th>${d}</th>`).join('');
+
+  let html = '';
+  let date = 1;
+  const baseDate = new Date(2025, 5, 18); // 18 يونيو 2025 = اليوم 5169
+
+  for (let i = 0; i < 6; i++) {
+    let row = '<tr>';
+    for (let j = 0; j < 7; j++) {
+      if (i === 0 && j < firstDay) {
+        row += '<td></td>';
+      } else if (date > daysInMonth) {
+        break;
+      } else {
+        const currentDay = new Date(calendarYear, calendarMonth, date);
+        const diffInDays = Math.round((currentDay - baseDate) / (1000 * 60 * 60 * 24));
+        const julianValue = 5169 + diffInDays;
+        const isToday = (
+  currentDay.getDate() === currentDate.getDate() &&
+  currentDay.getMonth() === currentDate.getMonth() &&
+  currentDay.getFullYear() === currentDate.getFullYear()
+);
+
+row += `<td class="${isToday ? 'today' : ''}">${julianValue}</td>`;
+        date++;
       }
-      renderCalendar();
     }
+    row += '</tr>';
+    html += row;
+  }
+
+  document.getElementById('calendar-body').innerHTML = html;
+}
+
   </script>
 </body>
 </html>
