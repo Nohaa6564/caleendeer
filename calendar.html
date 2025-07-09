@@ -15,13 +15,17 @@
   background-color: #f5ebe0;
   color: #626F47;
   text-align: center;
+  font-size: 1.2vw;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* لون الساعة */
 .time {
-  color: #626F47; /* بني متوسط واضح */
-  font-size: 2rem;
-  padding: 20px;
+  color: #626F47;
+  font-size: 2.5vw;
+  padding: 2vh;
+  font-weight: bold;
 }
 .scrolling-container {
   width: 100%;
@@ -33,10 +37,10 @@
 
 .scrolling-text {
   display: inline-block;
-  font-size: 2rem;
+  font-size: 2.2vw;
   font-weight: bold;
   color: #626F47;
-  padding: 10px 0;
+  padding: 1vh 0;
   animation: scroll-right 12s linear infinite;
 }
 
@@ -58,10 +62,10 @@
 
   .scrolling-text {
     display: inline-block;
-    font-size: 2rem; /* يمكنك تغييره حسب الحاجة */
+    font-size: 2.2vw; /* يمكنك تغييره حسب الحاجة */
     font-weight: bold;
     color: #626F47; /* نفس لون النص الثاني */
-    padding: 10px 0;
+    padding: 1vh 0;
     animation: scroll-right 12s linear infinite;
   }
 
@@ -75,30 +79,27 @@
   }
 /* اليوم تحت التاريخ (مثلاً: الجمعة) */
 .calendar-date {
-  color: #ffffff; /* بني رمادي أفتح */
-  font-size: 2rem;
-  font-weight: bold;
-}
-.time {
-  font-size: 3rem;
-  padding: 20px;
+  color: #ffffff;
+  font-size: 2vw;
   font-weight: bold;
 }
 
 .calendar-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 10px;
+  gap: 1vw;
+  padding: 1vh;
   flex-wrap: wrap;
 }
 
 .calendar-box {
   background-color: #626F47;
-  border-radius: 50px;
-  padding: 10px;
+  border-radius: 3vw;
+  padding: 1.2vw;
   cursor: pointer;
-  width: 350px;
+  width: 28vw;
+  max-width: 350px;
+  min-width: 250px;
   box-shadow: 0 4px 8px rgba(113, 107, 107, 0.5);
 }
 
@@ -107,14 +108,14 @@
 }
 
 .calendar-title {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-size: 1.6vw;
+  margin-bottom: 1vh;
   font-weight: bold;
   color: #ffffff;
 }
 
 .calendar-date {
-  font-size: 1.5rem;
+  font-size: 1.4vw;
 }
 
 .monthly-calendar {
@@ -136,7 +137,7 @@
   align-items: center;
   font-weight: bold;
   margin-bottom: 10px;
-  font-size: 2rem;
+  font-size: 2vw;
 }
 
 table {
@@ -146,25 +147,24 @@ table {
   table-layout: fixed;
   word-wrap: break-word;
 }
+
 th, td {
-  padding: 10px;
+  padding: 1vh 0.5vw;
   border: 1px solid #957e70;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.6vw;
   font-weight: bold;
 }
 
-/* تنسيق أيام الأسبوع */
 th {
   background-color: #626F47;
   font-weight: bold;
-  color: #ffffff; /* ← لون الكتابة لأيام الأسبوع */
+  color: #ffffff;
 }
 
-/* تنسيق أرقام الأيام */
 td {
-  color: #6c6c6c; /* ← لون الكتابة لأرقام الأيام */
-   font-weight: bold;
+  color: #6c6c6c;
+  font-weight: bold;
 }
 
 .today {
@@ -172,45 +172,51 @@ td {
   color: #ffffff !important;
   border-radius: 8px;
 }
+
 td.selected-day {
   background-color: #7e7500 !important;
   color: #ffffff !important;
   border-radius: 8px !important;
 }
 
-
 .calendar-nav-button {
   background-color: #626F47;
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 2rem;
+  padding: 1vh 2vw;
+  border-radius: 1vw;
+  font-size: 1.6vw;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-.selected-day {
-  background-color: #d4a373 !important; /* لون مميز */
-  color: #ffffff !important;
-  border-radius: 8px;
 }
 
 .calendar-nav-button:hover {
   background-color: #aec489;
 }
-/* 🌐 استجابة الجوال */
+
+.selected-day {
+  background-color: #d4a373 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+}
+
+/* استجابة الجوال */
 @media (max-width: 600px) {
+  body {
+    font-size: 3.5vw;
+  }
+
   .calendar-title {
-    font-size: 1rem;
+    font-size: 4vw;
   }
 
   .calendar-date {
-    font-size: 0.9rem;
+    font-size: 3.5vw;
   }
 
   th, td {
-    padding: 4px 2px;
-    font-size: 0.75rem;
+    padding: 0.5vh;
+    font-size: 3vw;
   }
 
   .calendar-box,
@@ -220,18 +226,54 @@ td.selected-day {
   }
 
   .time {
-    font-size: 2rem;
+    font-size: 6vw;
+  }
+
+  .scrolling-text {
+    font-size: 4vw;
+  }
+
+  .calendar-nav-button {
+    font-size: 4vw;
+    padding: 2vw;
+  }
+
+  .logo {
+    width: 60vw;
   }
 }
+
+/* استجابة الشاشات الكبيرة */
+@media (min-width: 1600px) {
+  .time {
+    font-size: 2vw;
+  }
+
+  .calendar-box {
+    width: 22vw;
+  }
+
+  .scrolling-text {
+    font-size: 1.6vw;
+  }
+
+  .calendar-title,
+  .calendar-date,
+  .calendar-nav-button {
+    font-size: 1.5vw;
+  }
+}
+
 .header-logos {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 1vh 2vw;
 }
 
 .logo {
-  width: 350px;
+  width: 20vw;
+  max-width: 350px;
   height: auto;
 }
 
