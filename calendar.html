@@ -276,6 +276,48 @@ td.selected-day {
   max-width: 350px;
   height: auto;
 }
+/* استجابة شاشات التلفاز الكبيرة جدًا */
+@media (min-width: 2000px), (min-height: 1200px) {
+  body {
+    font-size: 0.9vw;
+    overflow-y: hidden;
+  }
+
+  .time {
+    font-size: 1.5vw;
+    padding: 1vh 0;
+  }
+
+  .scrolling-text {
+    font-size: 1.2vw;
+    padding: 0.5vh 0;
+  }
+
+  .calendar-box {
+    width: 18vw;
+    padding: 1vh;
+  }
+
+  .calendar-title,
+  .calendar-date {
+    font-size: 1.2vw;
+  }
+
+  .calendar-nav-button {
+    font-size: 1.2vw;
+    padding: 0.5vh 1vw;
+  }
+
+  th, td {
+    font-size: 1.2vw;
+    padding: 0.5vh 0.3vw;
+  }
+
+  .header-logos .logo {
+    width: 15vw;
+  }
+}
+
 
   </style>
 </head>
