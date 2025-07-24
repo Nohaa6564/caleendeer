@@ -200,8 +200,28 @@ td.selected-day {
   border-radius: 8px;
 }
 
-/* 🌐 استجابة الجوال */
-@media (max-width: 600px) {
+/* تنسيقات عامة لجميع الشاشات */
+body {
+  font-size: 2vw;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  width: 20vw;
+  max-width: 350px;
+  height: auto;
+}
+
+.header-logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vh 2vw;
+}
+
+/* استجابة الجوال - أقل من 600px */
+@media (max-width: 599px) {
   body {
     font-size: 3.5vw;
   }
@@ -243,12 +263,8 @@ td.selected-day {
   }
 }
 
-/* 🖥️ استجابة الشاشات المتوسطة (أجهزة كمبيوتر أقل من 1600px) */
-@media (min-width: 601px) and (max-width: 1599px) {
-  body {
-    font-size: 1.2vw;
-  }
-
+/* استجابة شاشات الكمبيوتر - من 600px إلى 1999px */
+@media (min-width: 600px) and (max-width: 1999px) {
   .time {
     font-size: 2vw;
   }
@@ -266,15 +282,10 @@ td.selected-day {
   .calendar-nav-button {
     font-size: 1.5vw;
   }
-
-  .logo {
-    width: 20vw;
-    max-width: 350px;
-  }
 }
 
-/* 📺 استجابة شاشات التلفاز الكبيرة جداً (1600px فما فوق) */
-@media (min-width: 1600px) {
+/* استجابة شاشات التلفاز الكبيرة - من 2000px فما فوق */
+@media (min-width: 2000px) {
   html, body {
     font-size: 0.8vw;
     overflow: hidden;
@@ -313,7 +324,6 @@ td.selected-day {
   }
 
   .header-logos {
-    display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 1vh 0;
