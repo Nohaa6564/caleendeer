@@ -246,16 +246,23 @@ td.selected-day {
 /* استجابة الشاشات الكبيرة */
 @media (min-width: 1600px) {
   .time {
-    font-size: 2vw;
-  }
+  font-size: clamp(18px, 4vw, 50px); /* من 18px حتى 50px */
+  font-weight: bold;
+  text-align: center;
+}
+
+.scrolling-text {
+  font-size: clamp(14px, 3vw, 40px); /* من 14px حتى 40px */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
   .calendar-box {
     width: 22vw;
   }
 
-  .scrolling-text {
-    font-size: 1.6vw;
-  }
+
 
   .calendar-title,
   .calendar-date,
